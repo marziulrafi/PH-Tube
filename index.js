@@ -1,3 +1,10 @@
+function removeActive() {
+    const activeButtons = document.getElementsByClassName("active")
+    for (let btn of activeButtons) {
+        btn.classList.remove("active")
+    }
+}
+
 function loadCategories() {
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
         .then((res) => res.json())
@@ -6,8 +13,13 @@ function loadCategories() {
 function loadVideos() {
     fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
         .then((response) => response.json())
-        .then((data) => displayVideos(data.videos))
+        .then((data) => {
+            removeActive();
+            document.getElementById("btn-all").classList.add("active")
+            displayVideos(data.videos)
+        })
 }
+
 
 const loadCategoriesVideos = (id) => {
     const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
@@ -16,12 +28,45 @@ const loadCategoriesVideos = (id) => {
     fetch(url)
         .then((res) => res.json())
         .then((data) => {
-            const clickedButton = document.getElementById(`btn-${id}`)
+            removeActive();
+            const clickedButton = document.getElementById(`btn-${id}`);
+            clickedButton.classList.add("active");
 
-            clickedButton.classList.add("active")
-
-            displayVideos(data.category);
+            displayVideos(data.category)
         })
+}
+
+const videoDetails = (videoId) => {
+    console.log(videoId)
+
+    const url =`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`
+
+    fetch(url)
+    .then(res=>res.json())
+    .then((data)=>displayVideosDetails(data.video))
+}
+const displayVideosDetails=(video)=>{
+    console.log(video)
+    document.getElementById("video_detail").showModal()
+
+    const detailsContainer = document.getElementById("details-container");
+
+    detailsContainer.innerHTML = `
+    <div class="card bg-base-100 image-full shadow-sm">
+  <figure>
+    <img
+      src="${video.thumbnail}"
+      alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">${video.title}</h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <div class="card-actions justify-end">
+      
+    </div>
+  </div>
+</div>
+    `
 }
 
 function displayCategories(categories) {
@@ -79,12 +124,13 @@ const displayVideos = (videos) => {
                 <p class="text-xs text-gray-500">${video.others.views} Views</p>
              </div>
             </div>
+            <button onclick="videoDetails('${video.video_id}')" class="btn btn-black">Show Details</button>
           </div>
         `;
 
         videoContainer.append(videoCard)
     })
-};
+}
 
 loadCategories();
 loadVideos();
