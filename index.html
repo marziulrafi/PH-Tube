@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PH Tube</title>
+    <link rel="shortcut icon" href="./assets/Logo2.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
@@ -24,9 +25,15 @@
             </div>
             <div class="sort">
                 <label class="input">
-                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></g></svg>
-                    <input id="search-input" type="search" required placeholder="Search"/>
-                  </label>
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                            stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input id="search-input" type="search" required placeholder="Search" />
+                </label>
             </div>
             <div class="blogs">
                 <button class="btn bg-[#FF1F3D] text-white">Blogs</button>
@@ -38,6 +45,9 @@
         <button id="btn-all" onclick="loadVideos()" class="btn btn-sm">All</button>
     </section>
 
+    <section id="loading" class="text-center py-10 hidden">
+        <span class="loading loading-dots loading-lg"></span>
+    </section>
     <section class="w-11/12 gap-5 mx-auto grid grid-cols-4" id="video-container">
         <div class="col-span-full flex flex-col text-center justify-center items-center py-20">
             <img class="w-[120px]" src="./assets/Icon.png" alt="">
@@ -49,9 +59,9 @@
     <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
     <dialog id="video_detail" class="modal">
         <div class="modal-box">
-           <div id="details-container">
+            <div id="details-container">
 
-           </div>
+            </div>
             <div class="modal-action">
                 <form method="dialog">
                     <!-- if there is a button in form, it will close the modal -->
